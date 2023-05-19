@@ -1,0 +1,6 @@
+Assume a directory of files that can be full or empty.
+Files are chunks of text that can be full or empty. The files are stored with
+file name in normal english string. 
+Whenever a user creates a file, he/she saves it in the system.
+We store the file name hashed in memory. 
+If a name already exists we list it in another directory called duplicates.  
