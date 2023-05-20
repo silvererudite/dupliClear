@@ -33,11 +33,3 @@ class Hashmap:
                 return
         raise KeyError(f"key {key} not found in hash map")
         
-
-hash = Hashmap(200)
-hash.add("A", 19)
-hash.add("B", 12)
-hash.add("CA", 121)
-print(hash.get("A"))
-hash.add("A", 10)
-print(hash.get("A"))
