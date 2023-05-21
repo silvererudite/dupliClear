@@ -4,7 +4,7 @@ import hashlib
 
 
 def scan_directory(dir):
-    hash_map = {}
+    hash_map = Hashmap(200)
     duplicates = []
     for root, dirnames, files in os.walk(dir):
         for file_name in files:
@@ -15,7 +15,7 @@ def scan_directory(dir):
                 
                 duplicates.append([file_hash, path])
             else:
-                hash_map[file_hash] = path
+                hash_map.add(file_hash, path)
 
     return hash_map, duplicates
 
@@ -32,7 +32,7 @@ dir = './files'
 unique_files, duplicate_files = scan_directory(dir)
 
 print("Unique files:")
-for file_name, path in unique_files.items():
+for file_name, path in unique_files:
     print(f"file name {file_name}, file path {path}")
 
 print("\nDuplicate files:")
