@@ -32,4 +32,37 @@ class Hashmap:
                 del self.map[idx][i]
                 return
         raise KeyError(f"key {key} not found in hash map")
-        
+    
+    def __iter__(self):
+        self.current_bucket = 0
+        self.current_entry = 0
+        return self
+
+    def __next__(self):
+        while self.current_bucket < self.size:
+            if self.current_entry < len(self.map[self.current_bucket]):
+                entry = self.map[self.current_bucket][self.current_entry]
+                self.current_entry += 1
+                return entry
+            else:
+                self.current_bucket += 1
+                self.current_entry = 0
+        raise StopIteration
+    
+    def __contains__(self, key):
+        index = self._hash(key)
+        for entry in self.map[index]:
+            if entry[0] == key:
+                return True
+        return False
+
+# hash_map = Hashmap(10)
+# hash_map.add("A", 19)
+# hash_map.add("B", 12)
+# hash_map.add("C", 96)
+
+# for key, value in hash_map:
+#     print(f"Key: {key}, Value: {value}")
+
+# print("A" in hash_map)  # Output: True
+# print("AC" in hash_map)  # Output: False
