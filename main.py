@@ -1,8 +1,10 @@
 from model import Hashmap
 import os
 import hashlib
+import click
 
-
+@click.command()
+@click.argument('dir')
 def scan_directory(dir):
     hash_map = Hashmap(200)
     duplicates = []
@@ -17,7 +19,12 @@ def scan_directory(dir):
             else:
                 hash_map.add(file_hash, path)
 
-    return hash_map, duplicates
+    if duplicates:
+        click.echo("Duplicate files found:")
+        for file_path in duplicates:
+            click.echo(file_path)
+    else:
+        click.echo("No duplicate files found.")
 
 
 def get_hash(file_path):
@@ -28,14 +35,16 @@ def get_hash(file_path):
             hash_obj.update(chunk)
     return hash_obj.hexdigest()
     
-dir = './files'
-unique_files, duplicate_files = scan_directory(dir)
+# dir = './files'
+# unique_files, duplicate_files = scan_directory(dir)
 
-print("Unique files:")
-for file_name, path in unique_files:
-    print(f"file name {file_name}, file path {path}")
+# print("Unique files:")
+# for file_name, path in unique_files:
+#     print(f"file name {file_name}, file path {path}")
 
-print("\nDuplicate files:")
-for file_path in duplicate_files:
-    print(file_path)
+# print("\nDuplicate files:")
+# for file_path in duplicate_files:
+#     print(file_path)
 
+if __name__ == '__main__':
+    scan_directory()
